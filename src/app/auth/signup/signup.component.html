@@ -1,29 +1,29 @@
-<form>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
   <h2>Welcome on board!</h2>
   <p>We just need a little bit of data from you to get you started 🚀</p>
 
   <div class="control">
     <label for="email">Email</label>
-    <input id="email" type="email" name="email" />
+    <input formControlName="email" id="email" name="email" type="email" />
   </div>
 
-  <div class="control-row">
+  <div class="control-row" formGroupName="passwords">
     <div class="control">
       <label for="password">Password</label>
       <input
+        formControlName="password"
         id="password"
-        type="password"
         name="password"
-      />
+        type="password" />
     </div>
 
     <div class="control">
       <label for="confirm-password">Confirm Password</label>
       <input
+        formControlName="confirmPassword"
         id="confirm-password"
-        type="password"
         name="confirm-password"
-      />
+        type="password" />
     </div>
   </div>
 
@@ -34,46 +34,58 @@
       <div class="control">
         <label for="first-name">First Name</label>
         <input
-          type="text"
+          formControlName="firstName"
           id="first-name"
           name="first-name"
-        />
+          type="text" />
       </div>
 
       <div class="control">
         <label for="last-name">Last Name</label>
         <input
-          type="text"
+          formControlName="lastName"
           id="last-name"
           name="last-name"
-        />
+          type="text" />
       </div>
     </div>
 
-    <fieldset>
+    <fieldset formGroupName="address">
       <legend>Your Address</legend>
 
       <div class="control-row">
         <div class="control">
           <label for="street">Street</label>
-          <input type="text" id="street" name="street" />
+          <input
+            formControlName="street"
+            id="street"
+            name="street"
+            type="text" />
         </div>
 
         <div class="control">
           <label for="number">Number</label>
-          <input type="text" id="number" name="number" />
+          <input
+            formControlName="number"
+            id="number"
+            name="number"
+            type="text" />
         </div>
       </div>
 
       <div class="control-row">
         <div class="control">
           <label for="postal-code">Postal Code</label>
-          <input type="text" id="postal-code" name="postal-code" />
+          <input
+            formControlName="postalCode"
+            id="postal-code"
+            name="postal-code"
+            type="text" />
         </div>
 
         <div class="control">
           <label for="city">City</label>
-          <input type="text" id="city" name="city" />
+          <input formControlName="city" id="city" name="city" type="text" />
         </div>
       </div>
     </fieldset>
@@ -84,7 +96,7 @@
   <div class="control-row">
     <div class="control">
       <label for="role">What best describes your role?</label>
-      <select id="role" name="role">
+      <select formControlName="role" id="role" name="role">
         <option value="student">Student</option>
         <option value="teacher">Teacher</option>
         <option value="employee">Employee</option>
@@ -94,35 +106,35 @@
     </div>
   </div>
 
-  <fieldset>
+  <fieldset formArrayName="source">
     <legend>How did you find us?</legend>
     <div class="control">
       <input
-        type="checkbox"
+        formControlName="0"
         id="google"
         name="acquisition"
-        value="google"
-      />
+        type="checkbox"
+        value="google" />
       <label for="google">Google</label>
     </div>
 
     <div class="control">
       <input
-        type="checkbox"
+        formControlName="1"
         id="friend"
         name="acquisition"
-        value="friend"
-      />
+        type="checkbox"
+        value="friend" />
       <label for="friend">Referred by friend</label>
     </div>
 
     <div class="control">
       <input
-        type="checkbox"
+        formControlName="2"
         id="other"
         name="acquisition"
-        value="other"
-      />
+        type="checkbox"
+        value="other" />
       <label for="other">Other</label>
     </div>
   </fieldset>
@@ -131,17 +143,23 @@
     <div class="control">
       <label for="terms-and-conditions">
         <input
-          type="checkbox"
+          formControlName="agree"
           id="terms-and-conditions"
           name="terms"
-        />
+          type="checkbox" />
         I agree to the terms and conditions
       </label>
     </div>
   </div>
 
   <p class="form-actions">
-    <button type="reset" class="button button-flat">Reset</button>
-    <button type="submit" class="button">Sign up</button>
+    <button (click)="onReset()" class="button button-flat" type="button">
+      Reset
+    </button>
+    <button class="button" type="submit">Sign up</button>
   </p>
+
+  @if (form.touched && form.invalid) {
+    <p class="control-error">Invalid form - please check your data</p>
+  }
 </form>
